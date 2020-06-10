@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="PAIN_wpf.View.CarsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PAIN_wpf.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top" Height="33">
+            <ToolBar>
+                <Button Content="Add" Command="{Binding Path=AddCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+                <Button Content="Edit" Command="{Binding Path=EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+                <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+                <Button Content="NewWindow" Command="{Binding Path=NewWindow}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+            </ToolBar>
+        </ToolBarTray>
+        <ListView ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar, Mode=TwoWay}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Brand" DisplayMemberBinding="{Binding Brand}"/>
+                    <GridViewColumn Header="Type" DisplayMemberBinding="{Binding Type}"/>
+                    <GridViewColumn Header="Max Speed" DisplayMemberBinding="{Binding MaxSpeed}"/>
+                    <GridViewColumn Header="Production Year" DisplayMemberBinding="{Binding ProductionDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </DockPanel>
+</UserControl>

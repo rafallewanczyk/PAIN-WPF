@@ -10,6 +10,7 @@ using System.Windows;
 using System.Security.RightsManagement;
 using System.Windows.Data;
 using PAIN_wpf.View;
+using System.Collections.ObjectModel;
 
 namespace PAIN_wpf.ViewModel {
     class CarsViewModel : IViewModel, INotifyPropertyChanged
@@ -17,7 +18,7 @@ namespace PAIN_wpf.ViewModel {
         public event PropertyChangedEventHandler PropertyChanged;
 
         private CarsModel CarsModel {get;}
-        private readonly CollectionViewSource collectionViewSource;
+        private readonly CollectionViewSource collectionViewSourceCars;
         private Car selectedCar; 
 
         public Car SelectedCar
@@ -47,6 +48,55 @@ namespace PAIN_wpf.ViewModel {
         public RelayCommand<object> NewWindowCommand=> newWindowCommand= newWindowCommand?? new RelayCommand<object>(o =>NewWindow()); 
 
         public Action Close { get ; set ; }
+
+        private string filterText = ""; 
+        public string FilterText
+        {
+            get { return filterText; }
+            set
+            {
+                filterText = value;
+                UpdateFilter();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FilterText)));
+            }
+        }
+
+        private string filterCategory= "";
+        public string FilterCategory
+        {
+            get { return filterCategory; }
+            set
+            {
+                filterCategory= value;
+                UpdateFilter();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(FilterCategory)));
+            }
+        }
+        private void UpdateFilter()
+        {
+            collectionViewSourceCars.View.Refresh(); 
+        }
+
+        private bool FilterCar(Car car)
+        {
+            if (filterCategory.Equals("Brand"))
+            {
+                return car.Brand.Contains(FilterText);
+            }
+            else if (filterCategory.Equals("Type"))
+            {
+                return car.Type.Contains(FilterText);
+            }
+            else if (filterCategory.Equals("Max Speed"))
+            {
+                return car.MaxSpeed.ToString().Contains(FilterText);
+            }
+            else if (filterCategory.Equals("Production Year"))
+            {
+                return car.ProductionDate.ToString().Contains(FilterText);
+            }
+            return true; 
+        }
 
         public void AddCar()
         {
@@ -82,11 +132,13 @@ namespace PAIN_wpf.ViewModel {
         public CarsViewModel(CarsModel carsModel)
         {
             CarsModel = carsModel;
-            collectionViewSource = new CollectionViewSource
+            collectionViewSourceCars = new CollectionViewSource
             {
                 Source = CarsModel.Cars
             };
-            Cars = collectionViewSource.View; 
+            collectionViewSourceCars.View.Filter = (o) => FilterCar((Car)o); 
+            Cars = collectionViewSourceCars.View;
+
         }
     }
 }

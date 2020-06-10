@@ -13,6 +13,14 @@
                 <Button Content="Edit" Command="{Binding Path=EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
                 <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
                 <Button Content="NewWindow" Command="{Binding Path=NewWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+                <ComboBox Height="22" Margin="0" VerticalAlignment="Top" Width="120" Text="{Binding FilterCategory, UpdateSourceTrigger= PropertyChanged}">
+                    <ComboBoxItem>Brand</ComboBoxItem>
+                    <ComboBoxItem>Type</ComboBoxItem>
+                    <ComboBoxItem>Max Speed</ComboBoxItem>
+                    <ComboBoxItem>Production Year</ComboBoxItem>
+                    <ComboBoxItem>No filter</ComboBoxItem>
+                </ComboBox>
+                <TextBox Height="22" Margin="0" TextWrapping="Wrap" Text="{Binding FilterText, UpdateSourceTrigger = PropertyChanged}" VerticalAlignment="Top" Width="120"/>
             </ToolBar>
         </ToolBarTray>
         <ListView ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar, Mode=TwoWay}">

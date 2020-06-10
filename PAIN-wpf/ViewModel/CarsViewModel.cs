@@ -43,6 +43,8 @@ namespace PAIN_wpf.ViewModel {
         private RelayCommand<object> deleteCommand;
         public RelayCommand<object> DeleteCommand => deleteCommand = deleteCommand ?? new RelayCommand<object>(o => DeleteCar()); 
 
+        private RelayCommand<object> newWindowCommand;
+        public RelayCommand<object> NewWindowCommand=> newWindowCommand= newWindowCommand?? new RelayCommand<object>(o =>NewWindow()); 
 
         public Action Close { get ; set ; }
 
@@ -69,6 +71,12 @@ namespace PAIN_wpf.ViewModel {
                 CarsModel.Cars.Remove(selectedCar);
                 selectedCar = null; 
             }
+        }
+
+        public void NewWindow()
+        {
+            CarsViewModel carsViewModel = new CarsViewModel(CarsModel); 
+            ((App)Application.Current).WindowService.Show(carsViewModel); 
         }
 
         public CarsViewModel(CarsModel carsModel)

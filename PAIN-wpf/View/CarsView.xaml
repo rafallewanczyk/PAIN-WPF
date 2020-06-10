@@ -12,7 +12,7 @@
                 <Button Content="Add" Command="{Binding Path=AddCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
                 <Button Content="Edit" Command="{Binding Path=EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
                 <Button Content="Delete" Command="{Binding Path=DeleteCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
-                <Button Content="NewWindow" Command="{Binding Path=NewWindow}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
+                <Button Content="NewWindow" Command="{Binding Path=NewWindowCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=DataContext}"/>
             </ToolBar>
         </ToolBarTray>
         <ListView ItemsSource="{Binding Cars}" SelectedItem="{Binding SelectedCar, Mode=TwoWay}">
